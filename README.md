@@ -1,7 +1,7 @@
 
 
 <h1>Flicker</h1>
-<pre>
+
 Flicker is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
 Time spent: 5 hours spent in total
@@ -38,4 +38,4 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Had an unsuccessful attempt at implementing the functionality of the search bar.
-</pre>
+
