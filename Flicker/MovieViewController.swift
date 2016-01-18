@@ -17,9 +17,9 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var movies: [NSDictionary]?
     
-    var data = [String]()
+    var filterText: [String]!
     
-    var filteredData = [String]()
+    var filteredData: [NSDictionary]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +29,7 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.delegate = self
         searchBar.delegate = self
         loadDataFromNetwork()
-        //filteredData =
+        
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
@@ -53,10 +53,16 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         searchBar.showsCancelButton = false
         searchBar.text = ""
         searchBar.resignFirstResponder()
+        filteredData = movies
+        self.tableView.reloadData()
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        //let resultPredicate = NSPredicate(format: "name contains[c] %@", searchText)
+        filteredData = searchText.isEmpty ? movies : movies!.filter {
+            $0["title"]!.containsString(searchText)
+        }
+        tableView.reloadData()
     }
     
     func loadDataFromNetwork() {
@@ -81,14 +87,10 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
                         data, options:[]) as? NSDictionary {
                             print("response: \(responseDictionary)")
                             self.movies = responseDictionary["results"] as! [NSDictionary]
+                            self.filteredData = self.movies
                             self.tableView.reloadData()
-                            for(var i=0; i<self.movies!.count; i++)
-                            {
-                                let movie = self.movies![i]
-                                let title = movie["title"] as! String
-                                self.data.append(title)
-                            }
-                            //filteredData = data
+                            
+                            
                     }
                 }
        
@@ -106,7 +108,7 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //if movies not nil
         if let movies = movies {
-            return movies.count;
+            return filteredData!.count;
         } else {
             return 0;
         }
@@ -116,7 +118,7 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
         
-        let movie = movies![indexPath.row]
+        let movie = filteredData![indexPath.row]
         let title = movie["title"] as! String
         //self.data.append(title)
         let overview = movie["overview"] as! String

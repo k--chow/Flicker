@@ -19,7 +19,7 @@ The following **optional** features are implemented:
 
 - [ ] User sees an error message when there's a networking error.
 - [ ] Movies are displayed using a CollectionView instead of a TableView.
-- [ ] User can search for a movie.
+- [x] User can search for a movie.
 - [ ] All images fade in as they are loading.
 - [ ] Customize the UI.
 
@@ -37,5 +37,5 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Had an unsuccessful attempt at implementing the functionality of the search bar.
+Had an unsuccessful attempt at implementing the functionality of the search bar. Now implemented based on words in title.
 
