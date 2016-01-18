@@ -8,17 +8,61 @@
 
 import UIKit
 import AFNetworking
+import MBProgressHUD
 
-class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var movies: [NSDictionary]?
     
+    var data = [String]()
+    
+    var filteredData = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController!.navigationBar.barTintColor = UIColor(red: 0, green: 0.6667, blue: 0.1647, alpha: 1.0)
+        navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         tableView.dataSource = self
         tableView.delegate = self
+        searchBar.delegate = self
+        loadDataFromNetwork()
+        //filteredData =
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
+            }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        self.tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+    }
+    
+    func loadDataFromNetwork() {
+        
+        // Display HUD right before next request is made
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         
         //API Call
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
@@ -38,15 +82,25 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
                             print("response: \(responseDictionary)")
                             self.movies = responseDictionary["results"] as! [NSDictionary]
                             self.tableView.reloadData()
+                            for(var i=0; i<self.movies!.count; i++)
+                            {
+                                let movie = self.movies![i]
+                                let title = movie["title"] as! String
+                                self.data.append(title)
+                            }
+                            //filteredData = data
                     }
                 }
+       
+                
+                // Hide HUD once network request comes back (must be done on main UI thread)
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+                
+                // ...
+                
         });
         task.resume()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -64,6 +118,7 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let movie = movies![indexPath.row]
         let title = movie["title"] as! String
+        //self.data.append(title)
         let overview = movie["overview"] as! String
         let basePath = "http://image.tmdb.org/t/p/w500"
         let posterPath = movie["poster_path"] as! String

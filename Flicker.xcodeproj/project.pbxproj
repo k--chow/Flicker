@@ -13,11 +13,10 @@
 		307CA0A61C486B4100557495 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 307CA0A51C486B4100557495 /* Assets.xcassets */; };
 		307CA0A91C486B4100557495 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 307CA0A71C486B4100557495 /* LaunchScreen.storyboard */; };
 		307CA0B11C486CFA00557495 /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307CA0B01C486CFA00557495 /* MovieViewController.swift */; };
-		D472AE7751B30BB36D748F0D /* Pods_Flicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C8AF5CA71178BA5A70160F /* Pods_Flicker.framework */; };
+		B5085D151FAE08E24B5A908B /* Pods_Flicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402226AFC0EAFB1310F3F830 /* Pods_Flicker.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		05C8AF5CA71178BA5A70160F /* Pods_Flicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3031976B1C4C15C300F674BA /* MovieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		307CA09B1C486B4100557495 /* Flicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		307CA09E1C486B4100557495 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -26,6 +25,7 @@
 		307CA0A81C486B4100557495 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		307CA0AA1C486B4100557495 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		307CA0B01C486CFA00557495 /* MovieViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieViewController.swift; sourceTree = "<group>"; };
+		402226AFC0EAFB1310F3F830 /* Pods_Flicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0328451EA4CC9CC6057670A /* Pods-Flicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flicker.release.xcconfig"; path = "Pods/Target Support Files/Pods-Flicker/Pods-Flicker.release.xcconfig"; sourceTree = "<group>"; };
 		FD12726CA1AD285845541A2C /* Pods-Flicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flicker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Flicker/Pods-Flicker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -35,7 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D472AE7751B30BB36D748F0D /* Pods_Flicker.framework in Frameworks */,
+				B5085D151FAE08E24B5A908B /* Pods_Flicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,7 +93,7 @@
 		39CEC9BCC30850646A346837 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				05C8AF5CA71178BA5A70160F /* Pods_Flicker.framework */,
+				402226AFC0EAFB1310F3F830 /* Pods_Flicker.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
