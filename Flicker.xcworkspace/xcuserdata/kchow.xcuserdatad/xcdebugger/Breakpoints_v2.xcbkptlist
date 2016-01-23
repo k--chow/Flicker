@@ -17,5 +17,68 @@
             endingLineNumber = "11">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Flicker/AppDelegate.swift"
+            timestampString = "475214145.242227"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flicker.AppDelegate.__deallocating_deinit"
+                  moduleName = "Flicker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kchow/Dropbox/projects/Flicker/Flicker/AppDelegate.swift"
+                  timestampString = "475214145.249504"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flicker.AppDelegate.init (Flicker.AppDelegate.Type)() -&gt; Flicker.AppDelegate"
+                  moduleName = "Flicker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kchow/Dropbox/projects/Flicker/Flicker/AppDelegate.swift"
+                  timestampString = "475214145.249748"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "main"
+                  moduleName = "Flicker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kchow/Dropbox/projects/Flicker/Flicker/AppDelegate.swift"
+                  timestampString = "475214145.2499"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "22">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

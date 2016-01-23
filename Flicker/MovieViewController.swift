@@ -21,6 +21,8 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var filteredData: [NSDictionary]?
     
+    var endPoint: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController!.navigationBar.barTintColor = UIColor(red: 0, green: 0.6667, blue: 0.1647, alpha: 1.0)
@@ -72,7 +74,7 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         //API Call
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = NSURL(string:"https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
+        let url = NSURL(string:"https://api.themoviedb.org/3/movie/\(endPoint)?api_key=\(apiKey)")
         let request = NSURLRequest(URL: url!)
         let session = NSURLSession(
             configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
@@ -85,7 +87,6 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
-                            print("response: \(responseDictionary)")
                             self.movies = responseDictionary["results"] as! [NSDictionary]
                             self.filteredData = self.movies
                             self.tableView.reloadData()
@@ -123,12 +124,12 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         //self.data.append(title)
         let overview = movie["overview"] as! String
         let basePath = "http://image.tmdb.org/t/p/w500"
-        let posterPath = movie["poster_path"] as! String
+        if let posterPath = movie["poster_path"] as? String {
         let imageURL = NSURL(string: basePath + posterPath)
+        cell.movieImage.setImageWithURL(imageURL!)
+        }
         cell.movieTitle.text = title
         cell.movieOverview.text = overview
-        cell.movieImage.setImageWithURL(imageURL!)
-        print("row \(indexPath.row) \(title)")
         return cell
     }
     
