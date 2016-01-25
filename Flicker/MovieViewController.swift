@@ -23,12 +23,15 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var endPoint: String!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController!.navigationBar.barTintColor = UIColor(red: 0, green: 0.6667, blue: 0.1647, alpha: 1.0)
+        navigationController!.navigationBar.setBackgroundImage(UIImage(named: "nav_background"), forBarMetrics: .Default)
         navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
         tableView.dataSource = self
         tableView.delegate = self
+        
         searchBar.delegate = self
         loadDataFromNetwork()
         
@@ -115,6 +118,11 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         }
         
     }
+    /*
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+    }}*/
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
@@ -126,10 +134,32 @@ class MovieViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let basePath = "http://image.tmdb.org/t/p/w500"
         if let posterPath = movie["poster_path"] as? String {
         let imageURL = NSURL(string: basePath + posterPath)
-        cell.movieImage.setImageWithURL(imageURL!)
+        let imageRequest = NSURLRequest(URL: imageURL!);
+        cell.movieImage.setImageWithURLRequest(
+            imageRequest, placeholderImage: nil, success:
+            { (imageRequest, imageResponse, image) -> Void in
+                
+                if imageResponse != nil {
+                    print("Image was NOT cached, fade in image")
+                    cell.movieImage.alpha = 0.0
+                    cell.movieImage.image = image
+                    UIView.animateWithDuration(2.3, animations: { () -> Void in
+                        cell.movieImage.alpha = 1.0
+                    })
+                } else {
+                    print("Image was cached so just update the image")
+                    cell.movieImage.image = image
+                }
+            },
+            failure: { (imageRequest, imageResponse, error) -> Void in
+                
+        })
+        //cell.movieImage.setImageWithURL(imageURL!)
+            
         }
         cell.movieTitle.text = title
         cell.movieOverview.text = overview
+        cell.selectionStyle = .None
         return cell
     }
     

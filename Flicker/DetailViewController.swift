@@ -24,10 +24,47 @@ class DetailViewController: UIViewController {
         let title = movie["title"] as? String
         let overview = movie["overview"] as? String
         let basePath = "http://image.tmdb.org/t/p/w500"
+        let lowRes = "https://image.tmdb.org/t/p/w45"
+        let highRes = "https://image.tmdb.org/t/p/original"
         if let posterPath = movie["poster_path"] as? String {
-            print(movie["poster_path"])
-            let imageURL = NSURL(string: basePath + posterPath)
-            movieImage.setImageWithURL(imageURL!)
+            let smallImageRequest = NSURLRequest(URL: NSURL(string: lowRes + posterPath)!)
+            let largeImageRequest = NSURLRequest(URL: NSURL(string: highRes + posterPath)!)
+            
+            movieImage.setImageWithURLRequest(
+                smallImageRequest,
+                placeholderImage: nil,
+                success: { (smallImageRequest, smallImageResponse, smallImage) -> Void in
+                    
+                    // smallImageResponse will be nil if the smallImage is already available
+                    // in cache (might want to do something smarter in that case).
+                    self.movieImage.alpha = 0.0
+                    self.movieImage.image = smallImage;
+                    
+                    UIView.animateWithDuration(0.3, animations: { () -> Void in
+                        
+                        self.movieImage.alpha = 1.0
+                        
+                        }, completion: { (sucess) -> Void in
+                            
+                            // only allows one request to be sent at a time
+                           self.movieImage.setImageWithURLRequest(
+                                largeImageRequest,
+                                placeholderImage: smallImage,
+                                success: { (largeImageRequest, largeImageResponse, largeImage) -> Void in
+                                    
+                               self.movieImage.image = largeImage;
+                                    
+                                },
+                                failure: { (request, response, error) -> Void in
+                                    // do something for the failure condition of the large image request
+                                    
+                            })
+                    })
+                },
+                failure: { (request, response, error) -> Void in
+                    // do something for the failure condition
+                                })
+            //movieImage.setImageWithURL(imageURL!)
         }
         movieTitle.text = title
         movieOverview.text = overview
